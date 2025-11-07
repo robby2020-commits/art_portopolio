@@ -1,0 +1,145 @@
+<!-- index.html - Portfolio for Art Commissions
+
+Instructions:
+1. Replace images in the `images/` folder with your art files (recommended: JPG/PNG, max 2000px on longest side).
+2. Edit the text (name, bio, social links) below.
+3. To preview: open this file in browser (double-click index.html).
+4. To publish for free: create a GitHub repo, push these files, then enable GitHub Pages (Settings → Pages → Deploy from branch `main` -> / (root)). Your site will be available at `https://<username>.github.io/<repo>/` or at `https://<username>.github.io` if repo named `<username>.github.io`.
+
+Files included:
+- index.html (this file)
+- assets/style.css (embedded below for convenience)
+- assets/script.js (embedded below)
+- images/ (create this folder and add your images)
+
+-->
+
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portfolio Commission Art - [Nama Kamu]</title>
+  <meta name="description" content="Portfolio commission art oleh [Nama Kamu]. Lihat karya, harga, dan cara pesan." />
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+  <style>
+    /* --- Style (minimal, responsive, single-file friendly) --- */
+    :root{--accent:#6b5b95;--bg:#0f1724;--card:#0b1220;--muted:#9aa4b2}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:#e6eef6;background:linear-gradient(180deg,#071022 0%, #071627 100%);-webkit-font-smoothing:antialiased}
+    .container{max-width:1100px;margin:36px auto;padding:20px}
+    header{display:flex;gap:16px;align-items:center}
+    .logo{width:76px;height:76px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#3b82f6);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:20px}
+    h1{margin:0;font-size:28px}
+    p.lead{color:var(--muted);margin:6px 0 18px}
+    .controls{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
+    .btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:8px;color:#dfe9f7;text-decoration:none;font-size:14px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:22px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:8px;border-radius:10px;overflow:hidden;cursor:pointer;transition:transform .18s ease,box-shadow .18s}
+    .card:hover{transform:translateY(-6px);box-shadow:0 8px 30px rgba(11,22,40,0.6)}
+    .thumb{width:100%;height:0;padding-bottom:75%;position:relative;background:#081225}
+    .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .meta{display:flex;justify-content:space-between;align-items:center;padding:8px}
+    .title{font-weight:600;font-size:14px}
+    .sub{font-size:13px;color:var(--muted)}
+    /* Lightbox */
+    .lightbox{position:fixed;inset:0;background:rgba(2,6,23,0.9);display:none;align-items:center;justify-content:center;padding:20px;z-index:80}
+    .lightbox.active{display:flex}
+    .lightbox img{max-width:94vw;max-height:86vh;border-radius:8px;box-shadow:0 12px 40px rgba(0,0,0,0.6)}
+    .lb-close{position:absolute;top:18px;right:18px;background:transparent;border:none;color:#fff;font-size:20px}
+    footer{margin-top:28px;padding:18px;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap}
+    .socials{display:flex;gap:10px}
+    @media (max-width:520px){h1{font-size:20px}.logo{width:60px;height:60px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">ART</div>
+      <div>
+        <h1>Nama Kamu — Commission Art</h1>
+        <p class="lead">Selamat datang! Ini contoh portfolio statis untuk menampilkan karya commission. Ganti teks, gambar, dan link sesuai kebutuhan.</p>
+        <div class="controls">
+          <a class="btn" href="#contact">Pesan (Contact)</a>
+          <a class="btn" href="#gallery">Lihat Gallery</a>
+          <a class="btn" href="https://github.com" target="_blank">Deploy ke GitHub Pages</a>
+        </div>
+      </div>
+    </header>
+
+    <section id="gallery">
+      <div class="grid" id="grid">
+        <!-- Tambahkan kartu gambar di sini. Ganti src dengan path ke file di folder images/ -->
+        <div class="card" data-full="images/art1.jpg" tabindex="0">
+          <div class="thumb"><img src="images/art1.jpg" alt="Art 1"></div>
+          <div class="meta"><div class="title">Judul Karya 1</div><div class="sub">Digital, A4</div></div>
+        </div>
+
+        <div class="card" data-full="images/art2.jpg" tabindex="0">
+          <div class="thumb"><img src="images/art2.jpg" alt="Art 2"></div>
+          <div class="meta"><div class="title">Judul Karya 2</div><div class="sub">Commission - Character</div></div>
+        </div>
+
+        <div class="card" data-full="images/art3.jpg" tabindex="0">
+          <div class="thumb"><img src="images/art3.jpg" alt="Art 3"></div>
+          <div class="meta"><div class="title">Judul Karya 3</div><div class="sub">Sketch / Lineart</div></div>
+        </div>
+
+        <!-- Duplikat kartu sesuai kebutuhan, atau tambahkan lewat script jika mau -->
+      </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-hidden="true">
+      <button class="lb-close" id="lbClose" aria-label="Tutup">✕</button>
+      <img id="lbImg" src="" alt="Preview">
+    </div>
+
+    <footer id="contact">
+      <div>
+        <strong>Nama Kamu</strong>
+        <div class="sub">Commission open — Harga mulai Rp XX.XXX</div>
+        <div style="margin-top:8px;color:var(--muted)">Deskripsi singkat: saya menerima commission digital portrait, chibi, ilustrasi karakter. Turnaround 3–7 hari (tergantung pesanan).</div>
+      </div>
+      <div style="text-align:right">
+        <div class="socials">
+          <a class="btn" href="mailto:youremail@example.com">Email</a>
+          <a class="btn" href="https://instagram.com/username" target="_blank">Instagram</a>
+          <a class="btn" href="https://twitter.com/username" target="_blank">X</a>
+        </div>
+        <div style="margin-top:8px;color:var(--muted);font-size:13px">Tip: gunakan Google Forms atau WhatsApp link untuk menerima order tanpa backend.</div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Minimal lightbox script
+    (function(){
+      const grid = document.getElementById('grid')
+      const lb = document.getElementById('lightbox')
+      const lbImg = document.getElementById('lbImg')
+      const lbClose = document.getElementById('lbClose')
+
+      function openImg(src, alt){
+        lbImg.src = src
+        lbImg.alt = alt || ''
+        lb.classList.add('active')
+        lb.setAttribute('aria-hidden','false')
+      }
+      function close(){ lb.classList.remove('active'); lb.setAttribute('aria-hidden','true'); lbImg.src = '' }
+
+      grid.addEventListener('click', e=>{
+        const card = e.target.closest('.card')
+        if(!card) return
+        openImg(card.dataset.full || card.querySelector('img').src, card.querySelector('.title')?.innerText)
+      })
+      grid.addEventListener('keydown', e=>{
+        if(e.key==='Enter'){ const card=e.target.closest('.card'); if(card) openImg(card.dataset.full || card.querySelector('img').src) }
+      })
+      lbClose.addEventListener('click', close)
+      lb.addEventListener('click', e=>{ if(e.target===lb) close() })
+      document.addEventListener('keydown', e=>{ if(e.key==='Escape') close() })
+    })()
+  </script>
+</body>
+</html>
